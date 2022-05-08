@@ -5,6 +5,7 @@ NUMOFFILE=$(ls | wc -l)
 MAXACTIVEBCKP=20
 MAXDELETEFILE=10
 
+
 if [[ $NUMOFFILE -gt $MAXACTIVEBCKP ]]
         then
                 echo  "Piu di $MAXACTIVEBCKP, elimino i primi $MAXDELETEFILE"
