@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+    mysqldb:
+      image: mysql:latest
+      expose:
+        - "3306"
+      ports:
+        - "3306:3306"
+      command: --default-authentication-plugin=mysql_native_password
+      cap_add:
+      - SYS_NICE
+      environment:
+        MYSQL_DATABASE: girinmoto
+        MYSQL_ROOT_PASSWORD: 0000
+        MYSQL_USER: girinmoto
+        MYSQL_PASSWORD: girinmotopass
+        MYSQL_DATABASE_HOST: mysqldb
+      healthcheck:
+        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+        timeout: 30s
+        retries: 10
+      restart: unless-stopped
+      volumes:
+        - ./mysql-data:/var/lib/mysql/
+    girinmoto_backend:
+      build: ./GirInMotoServer
+      restart: unless-stopped
+      ports:
+        - "3000:3000"
+      depends_on:
+        mysqldb:
+          condition: service_healthy
