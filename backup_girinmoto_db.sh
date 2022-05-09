@@ -23,4 +23,3 @@ fi
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M")
 
 docker exec cgs_mysqldb_1 /usr/bin/mysqldump -u root --password=7DZeHNq19W6O express | gzip -9 > /root/CGS/cgsexpress_db_backups/cgsexpress_db_backup_$TIMESTAMP.gz
-
